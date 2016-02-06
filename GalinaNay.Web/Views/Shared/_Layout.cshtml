@@ -1,0 +1,74 @@
+﻿@using GalinaNay.Web.Constants
+@using GalinaNay.Web.Constants.HomeController
+@using GalinaNay.Web.Constants.View
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - GalinaNay.Web</title>
+
+        <environment names="@EnvironmentName.Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        </environment>
+	    <environment names="@EnvironmentName.Staging, @EnvironmentName.Production">
+		    <link rel="stylesheet" href="@ContentDeliveryNetwork.Microsoft.BootstrapCssUrl"
+		          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+		          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+	    </environment>
+		<link href="~/css/keen/font.css" rel="stylesheet" />
+		<link href="~/css/keen/animsition.min.css" rel="stylesheet" />
+		<link href="~/css/keen/style.css" rel="stylesheet" type="text/css" />
+        @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    </head>
+    <body>
+    <header>
+	    <div class="logo">
+		    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.Index" class="animsition-link">
+			    <img src="img/logo.png" alt="logo">
+		    </a>
+	    </div>
+	    
+	    <nav class="slide-menu">
+		    <div class="navigation">
+			    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.Index" data-hover="home" class="animsition-link"><span class="active-link">home</span></a>
+			    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.Prices" data-hover="work" class="animsition-link"><span>work</span></a>
+			    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.About" data-hover="about" class="animsition-link"><span>about</span></a>
+			    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.Portfolio" data-hover="journal" class="animsition-link"><span>journal</span></a>
+			    <a asp-controller="@ControllerName.Home" asp-action="@HomeControllerAction.Contact" data-hover="contact" class="animsition-link"><span>contact</span></a>
+				@await Html.PartialAsync(PartialViewName.LoginPartial)
+		    </div>
+	    </nav>
+    </header>
+
+    <div class="container body-content">
+	    @RenderBody()
+	    <hr/>
+	    <footer>
+		    <p>&copy; 2016 - GalinaNay.Web</p>
+	    </footer>
+    </div>
+
+    <environment names="@EnvironmentName.Development">
+		<script src="~/lib/jquery/dist/jquery.js"></script>
+	    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+	    <script src="~/lib/keen/jquery.animsition.min.js"></script>
+	    <script src="~/lib/keen/idangerous.swiper.min.js"></script>
+    </environment>
+        <environment names="@EnvironmentName.Staging, @EnvironmentName.Production">
+            <script src="@ContentDeliveryNetwork.Google.JQueryUrl"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+	        <script src="@ContentDeliveryNetwork.Microsoft.BootstrapUrl"
+	                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+	                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        	</script>
+			<script src="~/lib/keen/jquery.animsition.min.js"></script>
+	        <script src="~/lib/keen/idangerous.swiper.min.js"></script>
+			<script src="~/lib/keen/all.js"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
